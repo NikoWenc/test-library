@@ -56,8 +56,8 @@ form.addEventListener('submit', (event) => {
     newDiv.appendChild(bookAuthor);
     newDiv.appendChild(bookPages);
     newDiv.appendChild(bookStatus);
-    buttonsDiv.appendChild(readButton);
-    buttonsDiv.appendChild(delButton);
+    buttonsDiv.appendChild(readButton).setAttribute('class', 'doneBTN');
+    buttonsDiv.appendChild(delButton).setAttribute('class', 'delBTN');
     newDiv.appendChild(buttonsDiv);
     container.appendChild(newDiv);
 

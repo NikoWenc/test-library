@@ -4,6 +4,10 @@
     margin: 0;
 }
 
+body {
+    background-color: rgb(12, 12, 61);
+}
+
 .container{
     width: 25vw;
     margin: 0 auto;
@@ -12,8 +16,9 @@
     justify-content: center;
     align-content: center;
     grid-template-columns: 200px;
-    grid-template-rows: 150px;
-    grid-auto-rows: 150px;
+    grid-template-rows: 170px;
+    grid-auto-rows: 170px;
+    color: white;
 }
 
 .center {
@@ -22,6 +27,7 @@
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
+    border: 1px solid white;
 }
 
 .addNew {
@@ -50,4 +56,11 @@ dialog {
 .button {
     padding: 1.5rem 2rem;
     font-size: 1rem;
+    border-radius: 20px;
+}
+
+.delBTN, .doneBTN {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    border-radius: 20px;
 }
