@@ -40,3 +40,8 @@ dialog {
   padding: 20px;
   background: white;
 }
+
+.button {
+    padding: 1.5rem 2rem;
+    font-size: 1rem;
+}

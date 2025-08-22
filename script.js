@@ -7,7 +7,7 @@ const closeBTN = document.querySelector('#closeBTN');
 const myLibrary = [];
 
 // add book details button
-addBook.addEventListener('click', (event) => dialog.showModal())
+addBook.addEventListener('click', () => dialog.showModal())
 
 closeBTN.addEventListener('click', (event) => {
     dialog.close();
@@ -27,13 +27,20 @@ form.addEventListener('submit', (event) => {
     const bookAuthor = document.createElement('p');
     const bookPages = document.createElement('p');
     const bookTitle = document.createElement('h2');
+    const newButton = document.createElement('button');
+
+    newButton.addEventListener('click', () => {
+        container.removeChild(newDiv);
+    })
 
     bookTitle.textContent = `Book Title: ${title}`;
     bookAuthor.textContent = `Book Author: ${author}`;
     bookPages.textContent = `Number of Pages: ${pages}`;
+    newButton.textContent = 'Delete';
     newDiv.appendChild(bookTitle);
     newDiv.appendChild(bookAuthor);
     newDiv.appendChild(bookPages);
+    newDiv.appendChild(newButton);
     newDiv.className = 'center';
     container.appendChild(newDiv);
 
