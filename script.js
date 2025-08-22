@@ -24,6 +24,7 @@ form.addEventListener('submit', (event) => {
     let pages = form.bookPages.value;
     let newBook = book(title, author, pages);
     myLibrary.push(newBook);
+    console.log(newBook.info());
 
     const newDiv = document.createElement('div');
     newDiv.className = 'center';
@@ -84,9 +85,7 @@ form.addEventListener('submit', (event) => {
 // refactored above code to below code / changed to a factory function
 function book (title, author, pages) {
     const read = 'not read yet';
-    const info = function () {
-        `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
-    }
+    const info = () => `${title} by ${author}, ${pages} pages, ${read}`;
     const id = crypto.randomUUID();
     return {title, author, pages, read, info, id,}
 }
