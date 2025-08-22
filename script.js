@@ -50,7 +50,11 @@ form.addEventListener('submit', (event) => {
     })
 
     // add button to delete the entry
-    delButton.addEventListener('click', () => container.removeChild(newDiv))
+    delButton.addEventListener('click', () => {
+        container.removeChild(newDiv)
+        const index = myLibrary.findIndex(elementIndex => elementIndex.id === newBook.id);
+        if (index != -1) myLibrary.splice(index, 1);
+    });
 
     newDiv.append(bookTitle, bookAuthor, bookPages, bookStatus, buttonsDiv);
     buttonsDiv.append(readButton, delButton);
