@@ -16,11 +16,10 @@ closeBTN.addEventListener('click', (event) => {
 })
 
 // helper function to create DOM elements
-function createElement (tag, text, className, classAttribute) {
+function createElement (tag, text, classList) {
     const element = document.createElement(tag);
     if (text) element.textContent = text;
-    if (className) element.className = className;
-    if (classAttribute) element.setAttribute('class', classAttribute);
+    if (classList) element.classList.add(classList);
     return element;
 }
 
@@ -41,8 +40,8 @@ form.addEventListener('submit', (event) => {
     const bookPages = createElement('p', `Number of Pages: ${pages}`);
     const bookStatus = createElement('p', newBook.read);
     const buttonsDiv = createElement('div', false, 'buttonsDiv');
-    const readButton = createElement('button', 'Done', false, 'doneBTN')
-    const delButton = createElement('button', 'Delete', false, 'delBTN');
+    const readButton = createElement('button', 'Done', 'doneBTN')
+    const delButton = createElement('button', 'Delete', 'delBTN');
 
     // change status when done reading
     readButton.addEventListener('click', () => {
