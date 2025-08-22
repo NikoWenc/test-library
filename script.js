@@ -9,11 +9,13 @@ const myLibrary = [];
 // add book details button
 addBook.addEventListener('click', () => dialog.showModal())
 
+// close button for dialog
 closeBTN.addEventListener('click', (event) => {
     dialog.close();
     event.preventDefault()
 })
 
+// submit button for form - prevent form default submit
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -24,14 +26,14 @@ form.addEventListener('submit', (event) => {
     addToLibrary(newBook);
 
     const newDiv = document.createElement('div');
+    newDiv.className = 'center';
     const bookAuthor = document.createElement('p');
     const bookPages = document.createElement('p');
     const bookTitle = document.createElement('h2');
     const newButton = document.createElement('button');
 
-    newButton.addEventListener('click', () => {
-        container.removeChild(newDiv);
-    })
+    // add button to delete the entry
+    newButton.addEventListener('click', () => container.removeChild(newDiv))
 
     bookTitle.textContent = `Book Title: ${title}`;
     bookAuthor.textContent = `Book Author: ${author}`;
@@ -41,7 +43,6 @@ form.addEventListener('submit', (event) => {
     newDiv.appendChild(bookAuthor);
     newDiv.appendChild(bookPages);
     newDiv.appendChild(newButton);
-    newDiv.className = 'center';
     container.appendChild(newDiv);
 
     dialog.close();
@@ -63,6 +64,3 @@ function Book (title, author, pages) {
 function addToLibrary (book) {
     myLibrary.push(book);
 }
-
-const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295);
-
