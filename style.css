@@ -42,6 +42,11 @@ dialog {
   background: white;
 }
 
+.buttonsDiv {
+    display: flex;
+    gap: 10px;
+}
+
 .button {
     padding: 1.5rem 2rem;
     font-size: 1rem;

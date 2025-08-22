@@ -31,6 +31,8 @@ form.addEventListener('submit', (event) => {
     const bookAuthor = document.createElement('p');
     const bookPages = document.createElement('p');
     const bookStatus = document.createElement('p');
+    const buttonsDiv = document.createElement('div');
+    buttonsDiv.className = 'buttonsDiv';
     const readButton = document.createElement('button');
     const delButton = document.createElement('button');
 
@@ -54,8 +56,9 @@ form.addEventListener('submit', (event) => {
     newDiv.appendChild(bookAuthor);
     newDiv.appendChild(bookPages);
     newDiv.appendChild(bookStatus);
-    newDiv.appendChild(readButton);
-    newDiv.appendChild(delButton);
+    buttonsDiv.appendChild(readButton);
+    buttonsDiv.appendChild(delButton);
+    newDiv.appendChild(buttonsDiv);
     container.appendChild(newDiv);
 
     dialog.close();
