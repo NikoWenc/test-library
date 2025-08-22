@@ -27,22 +27,35 @@ form.addEventListener('submit', (event) => {
 
     const newDiv = document.createElement('div');
     newDiv.className = 'center';
+    const bookTitle = document.createElement('h2');
     const bookAuthor = document.createElement('p');
     const bookPages = document.createElement('p');
-    const bookTitle = document.createElement('h2');
-    const newButton = document.createElement('button');
+    const bookStatus = document.createElement('p');
+    const readButton = document.createElement('button');
+    const delButton = document.createElement('button');
+
+    // change status when done reading
+    readButton.addEventListener('click', () => {
+        bookStatus.textContent = 'Finished!';
+        bookStatus.style.color = 'green';
+    })
 
     // add button to delete the entry
-    newButton.addEventListener('click', () => container.removeChild(newDiv))
+    delButton.addEventListener('click', () => container.removeChild(newDiv))
 
     bookTitle.textContent = `Book Title: ${title}`;
     bookAuthor.textContent = `Book Author: ${author}`;
     bookPages.textContent = `Number of Pages: ${pages}`;
-    newButton.textContent = 'Delete';
+    bookStatus.textContent = newBook.read;
+    readButton.textContent = `Done`;
+    delButton.textContent = 'Delete';
+
     newDiv.appendChild(bookTitle);
     newDiv.appendChild(bookAuthor);
     newDiv.appendChild(bookPages);
-    newDiv.appendChild(newButton);
+    newDiv.appendChild(bookStatus);
+    newDiv.appendChild(readButton);
+    newDiv.appendChild(delButton);
     container.appendChild(newDiv);
 
     dialog.close();
