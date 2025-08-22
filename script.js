@@ -22,7 +22,7 @@ form.addEventListener('submit', (event) => {
     let title = form.bookTitle.value;
     let author = form.bookAuthor.value;
     let pages = form.bookPages.value;
-    let newBook = new Book(title, author, pages);
+    let newBook = book(title, author, pages);
     addToLibrary(newBook);
 
     const newDiv = document.createElement('div');
@@ -59,22 +59,28 @@ form.addEventListener('submit', (event) => {
     buttonsDiv.appendChild(readButton).setAttribute('class', 'doneBTN');
     buttonsDiv.appendChild(delButton).setAttribute('class', 'delBTN');
     newDiv.appendChild(buttonsDiv);
-    container.appendChild(newDiv);
 
     dialog.close();
 })
 
-function Book (title, author, pages) {
-    if (!new.target){
-        // log this error if 'new' operator is not called
-        throw Error("You must use the 'new' operator to call the constructor")
-    }
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = 'not read yet';
-    this.info = () => `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
-    this.id = crypto.randomUUID();
+// function Book (title, author, pages) {
+//     if (!new.target){
+//         // log this error if 'new' operator is not called
+//         throw Error("You must use the 'new' operator to call the constructor")
+//     }
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.read = 'not read yet';
+//     this.info = () => `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
+//     this.id = crypto.randomUUID();
+// }
+// refactored above code to below code / changed to a factory function
+function book (title, author, pages) {
+    const read = 'not read yet';
+    const info = function () {`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;}
+    const id = crypto.randomUUID();
+    return {title, author, pages, read, info, id,}
 }
 
 function addToLibrary (book) {
