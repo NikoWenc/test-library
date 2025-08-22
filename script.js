@@ -23,7 +23,7 @@ form.addEventListener('submit', (event) => {
     let author = form.bookAuthor.value;
     let pages = form.bookPages.value;
     let newBook = book(title, author, pages);
-    addToLibrary(newBook);
+    myLibrary.push(book);
 
     const newDiv = document.createElement('div');
     newDiv.className = 'center';
@@ -50,15 +50,21 @@ form.addEventListener('submit', (event) => {
     bookPages.textContent = `Number of Pages: ${pages}`;
     bookStatus.textContent = newBook.read;
     readButton.textContent = `Done`;
+    readButton.setAttribute('class', 'doneBTN');
     delButton.textContent = 'Delete';
+    delButton.setAttribute('class', 'delBTN');
 
-    newDiv.appendChild(bookTitle);
-    newDiv.appendChild(bookAuthor);
-    newDiv.appendChild(bookPages);
-    newDiv.appendChild(bookStatus);
-    buttonsDiv.appendChild(readButton).setAttribute('class', 'doneBTN');
-    buttonsDiv.appendChild(delButton).setAttribute('class', 'delBTN');
-    newDiv.appendChild(buttonsDiv);
+    // newDiv.appendChild(bookTitle);
+    // newDiv.appendChild(bookAuthor);
+    // newDiv.appendChild(bookPages);
+    // newDiv.appendChild(bookStatus);
+    // buttonsDiv.appendChild(readButton).setAttribute('class', 'doneBTN');
+    // buttonsDiv.appendChild(delButton).setAttribute('class', 'delBTN');
+    // newDiv.appendChild(buttonsDiv);
+    // refactored above code to below code
+    newDiv.append(bookTitle, bookAuthor, bookPages, bookStatus, buttonsDiv);
+    buttonsDiv.append(readButton, delButton);
+    container.appendChild(newDiv);
 
     dialog.close();
 })
@@ -83,6 +89,6 @@ function book (title, author, pages) {
     return {title, author, pages, read, info, id,}
 }
 
-function addToLibrary (book) {
-    myLibrary.push(book);
-}
+// function addToLibrary (book) {
+//     myLibrary.push(book);
+// }
