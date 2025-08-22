@@ -15,6 +15,15 @@ closeBTN.addEventListener('click', (event) => {
     event.preventDefault()
 })
 
+// helper function to create DOM elements
+function createElement (tag, text, className, classAttribute) {
+    const element = document.createElement(tag);
+    if (text) element.textContent = text;
+    if (className) element.className = className;
+    if (classAttribute) element.setAttribute('class', classAttribute);
+    return element;
+}
+
 // submit button for form - prevent form default submit
 form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -22,20 +31,18 @@ form.addEventListener('submit', (event) => {
     let title = form.bookTitle.value;
     let author = form.bookAuthor.value;
     let pages = form.bookPages.value;
-    let newBook = book(title, author, pages);
+    let newBook = Book(title, author, pages);
     myLibrary.push(newBook);
     console.log(newBook.info());
 
-    const newDiv = document.createElement('div');
-    newDiv.className = 'center';
-    const bookTitle = document.createElement('h2');
-    const bookAuthor = document.createElement('p');
-    const bookPages = document.createElement('p');
-    const bookStatus = document.createElement('p');
-    const buttonsDiv = document.createElement('div');
-    buttonsDiv.className = 'buttonsDiv';
-    const readButton = document.createElement('button');
-    const delButton = document.createElement('button');
+    const newDiv = createElement('div', false, 'center');
+    const bookTitle = createElement('h2', `Book Title: ${title}`);
+    const bookAuthor = createElement('p', `Book Author: ${author}`)
+    const bookPages = createElement('p', `Number of Pages: ${pages}`);
+    const bookStatus = createElement('p', newBook.read);
+    const buttonsDiv = createElement('div', false, 'buttonsDiv');
+    const readButton = createElement('button', 'Done', false, 'doneBTN')
+    const delButton = createElement('button', 'Delete', false, 'delBTN');
 
     // change status when done reading
     readButton.addEventListener('click', () => {
@@ -46,23 +53,6 @@ form.addEventListener('submit', (event) => {
     // add button to delete the entry
     delButton.addEventListener('click', () => container.removeChild(newDiv))
 
-    bookTitle.textContent = `Book Title: ${title}`;
-    bookAuthor.textContent = `Book Author: ${author}`;
-    bookPages.textContent = `Number of Pages: ${pages}`;
-    bookStatus.textContent = newBook.read;
-    readButton.textContent = `Done`;
-    readButton.setAttribute('class', 'doneBTN');
-    delButton.textContent = 'Delete';
-    delButton.setAttribute('class', 'delBTN');
-
-    // newDiv.appendChild(bookTitle);
-    // newDiv.appendChild(bookAuthor);
-    // newDiv.appendChild(bookPages);
-    // newDiv.appendChild(bookStatus);
-    // buttonsDiv.appendChild(readButton).setAttribute('class', 'doneBTN');
-    // buttonsDiv.appendChild(delButton).setAttribute('class', 'delBTN');
-    // newDiv.appendChild(buttonsDiv);
-    // refactored above code to below code
     newDiv.append(bookTitle, bookAuthor, bookPages, bookStatus, buttonsDiv);
     buttonsDiv.append(readButton, delButton);
     container.appendChild(newDiv);
@@ -70,26 +60,9 @@ form.addEventListener('submit', (event) => {
     dialog.close();
 })
 
-// function Book (title, author, pages) {
-//     if (!new.target){
-//         // log this error if 'new' operator is not called
-//         throw Error("You must use the 'new' operator to call the constructor")
-//     }
-//     this.title = title;
-//     this.author = author;
-//     this.pages = pages;
-//     this.read = 'not read yet';
-//     this.info = () => `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
-//     this.id = crypto.randomUUID();
-// }
-// refactored above code to below code / changed to a factory function
-function book (title, author, pages) {
+function Book (title, author, pages) {
     const read = 'not read yet';
     const info = () => `${title} by ${author}, ${pages} pages, ${read}`;
     const id = crypto.randomUUID();
     return {title, author, pages, read, info, id,}
 }
-
-// function addToLibrary (book) {
-//     myLibrary.push(book);
-// }
