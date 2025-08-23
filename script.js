@@ -23,27 +23,20 @@ function createElement (tag, text, classList) {
     return element;
 }
 
-// prevent form default submit
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const {formTitle, formAuthor, formPages} = form.elements;
-    let newBook = Book(formTitle.value, formAuthor.value, formPages.value);
-    myLibrary.push(newBook);
-
+function bookEntry (book) {
     const newDiv = createElement('div', false, 'center');
-    const bookTitle = createElement('h2', `Book Title: ${formTitle.value}`);
-    const bookAuthor = createElement('p', `Book Author: ${formAuthor.value}`)
-    const bookPages = createElement('p', `Number of Pages: ${formPages.value}`);
-    const bookStatus = createElement('p', newBook.status);
+    const bookTitle = createElement('h2', `Book Title: ${book.title}`);
+    const bookAuthor = createElement('p', `Book Author: ${book.author}`)
+    const bookPages = createElement('p', `Number of Pages: ${book.pages}`);
+    const bookStatus = createElement('p', book.status);
     const buttonsDiv = createElement('div', false, 'buttonsDiv');
     const readButton = createElement('button', 'Done', 'doneBTN')
     const delButton = createElement('button', 'Delete', 'delBTN');
 
     // change status when done reading
     readButton.addEventListener('click', () => {
-        newBook.doneRead();
-        bookStatus.textContent = newBook.status;
+        book.doneRead();
+        bookStatus.textContent = book.status;
         bookStatus.style.color = 'green';
     })
 
@@ -56,7 +49,18 @@ form.addEventListener('submit', (event) => {
 
     newDiv.append(bookTitle, bookAuthor, bookPages, bookStatus, buttonsDiv);
     buttonsDiv.append(readButton, delButton);
-    container.appendChild(newDiv);
+
+    return newDiv;
+}
+
+// prevent form default submit
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const {formTitle, formAuthor, formPages} = form.elements;
+    let newBook = Book(formTitle.value, formAuthor.value, formPages.value);
+    myLibrary.push(newBook);
+    container.appendChild(bookEntry(newBook));
 
     dialog.close();
 })
