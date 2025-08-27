@@ -43,7 +43,7 @@ function bookEntry (book) {
     // delete the entry
     delButton.addEventListener('click', () => {
         container.removeChild(newDiv)
-        const index = myLibrary.findIndex(elementIndex => elementIndex.id === newBook.id);
+        const index = myLibrary.findIndex(elementIndex => elementIndex.id === book.id);
         if (index != -1) myLibrary.splice(index, 1);
     });
 
@@ -72,3 +72,21 @@ function Book (title, author, pages) {
     const id = crypto.randomUUID();
     return {title, author, pages, get status() { return status }, doneRead, info, id,}
 }
+
+
+class NewClass {
+    constructor(name){
+        this.name = name;
+    }
+
+    sayHi(){
+        return this.name;
+    }
+
+    newHi(){
+        return `${this.name} new`;
+    }
+}
+
+const testUser = new NewClass('niko');
+console.log(testUser.sayHi())
