@@ -22,10 +22,6 @@ function createElement (tag, text, classList) {
     return element;
 }
 
-function updateBookStatus(book) {
-    return book.isRead ? book.undoRead(): book.doneRead();
-}
-
 class BookEntry {
 
     constructor(book) {
@@ -39,18 +35,23 @@ class BookEntry {
         this.delButton = createElement('button', 'Delete', 'delBTN');
 
         // change status when done reading
-        this.readButton.addEventListener('click', () => {
-            updateBookStatus(book);
-            this.bookStatus.textContent = book.isRead ? 'Finished' : 'Not yet Read';
-            this.bookStatus.style.color = book.isRead ? 'green' : 'white';
-        })
+        this.readButton.addEventListener('click', () => this.updateBookReadStatus(book))
 
         // delete the entry
-        this.delButton.addEventListener('click', () => {
-            container.removeChild(this.newDiv)
-            const index = myLibrary.findIndex(elementIndex => elementIndex.id === book.id);
-            if (index != -1) myLibrary.splice(index, 1);
-        });
+        this.delButton.addEventListener('click', () => this.deleteEntry(book));
+    }
+    
+    updateBookReadStatus(book){
+        book.isRead ? book.undoRead(): book.doneRead();
+        this.bookStatus.textContent = book.isRead ? 'Finished' : 'Not yet Read';
+        this.bookStatus.style.color = book.isRead ? 'green' : 'white';
+        this.readButton.textContent = book.isRead ? 'Undone' : 'Done';
+    }
+
+    deleteEntry(book){
+        container.removeChild(this.newDiv)
+        const index = myLibrary.findIndex(elementIndex => elementIndex.id === book.id);
+        if (index != -1) myLibrary.splice(index, 1);
     }
 
     append(){
@@ -103,5 +104,9 @@ class Book {
 
     undoRead(){
         return this.isRead = false;
+    }
+
+    toggleRead(){
+        return this.isRead ? true : false;
     }
 }
