@@ -15,42 +15,61 @@ closeBTN.addEventListener('click', (event) => {
     event.preventDefault()
 });
 
-function createElement (tag, text, classList) {
+function createElement (tag) {
     const element = document.createElement(tag);
-    if (text) element.textContent = text;
-    if (classList) element.classList.add(classList);
     return element;
 }
 
 class BookEntry {
 
     constructor(book) {
-        this.newDiv = createElement('div', false, 'center');
-        this.bookTitle = createElement('h2', `Book Title: ${book.title}`);
-        this.bookAuthor = createElement('p', `Book Author: ${book.author}`);
-        this.bookPages = createElement('p', `Number of Pages: ${book.pages}`);
-        this.bookStatus = createElement('p', book.isRead ? 'Finished' : 'Not yet Read');
-        this.buttonsDiv = createElement('div', false, 'buttonsDiv');
-        this.readButton = createElement('button', 'Done', 'doneBTN');
-        this.delButton = createElement('button', 'Delete', 'delBTN');
+        this.book = book
+        this.newDiv = createElement('div');
+        this.bookTitle = createElement('h2');
+        this.bookAuthor = createElement('p');
+        this.bookPages = createElement('p');
+        this.bookStatus = createElement('p');
+        this.buttonsDiv = createElement('div');
+        this.readButton = createElement('button');
+        this.delButton = createElement('button');
 
         // change status when done reading
-        this.readButton.addEventListener('click', () => this.updateBookReadStatus(book))
+        this.readButton.addEventListener('click', () => this.updateBookReadStatus())
 
         // delete the entry
-        this.delButton.addEventListener('click', () => this.deleteEntry(book));
-    }
-    
-    updateBookReadStatus(book){
-        book.toggleReadStatus();
-        this.bookStatus.textContent = book.isRead ? 'Finished' : 'Not yet Read';
-        this.bookStatus.style.color = book.isRead ? 'green' : 'white';
-        this.readButton.textContent = book.isRead ? 'Undone' : 'Done';
+        this.delButton.addEventListener('click', () => {
+            this.deleteEntry();
+            this.deleteEntryFromLibrary();    
+        });
+
+        this.updateBookEntryContents();
     }
 
-    deleteEntry(book){
+    updateBookEntryContents(){
+        this.newDiv.classList.add('center');
+        this.bookTitle.textContent = `Book Title: ${this.book.title}`;
+        this.bookAuthor.textContent = `Book Author: ${this.book.author}`;
+        this.bookPages.textContent = `Number of Pages: ${this.book.pages}`;
+        this.bookStatus.textContent = this.book.isRead ? 'Finished' : 'Not yet Read';
+        this.bookStatus.style.color = this.book.isRead ? 'green' : 'white';
+        this.buttonsDiv.classList.add('buttonsDiv');
+        this.readButton.textContent = this.book.isRead ? 'Undone' : 'Done';
+        this.readButton.classList.add('doneBTN');
+        this.delButton.textContent = 'Delete';
+        this.delButton.classList.add('delBTN');
+    }
+    
+    updateBookReadStatus(){
+        this.book.toggleReadStatus();
+        this.updateBookEntryContents();
+    }
+
+    deleteEntry(){
         container.removeChild(this.newDiv)
-        const index = myLibrary.findIndex(elementIndex => elementIndex.id === book.id);
+    }
+
+    deleteEntryFromLibrary(){
+        const index = myLibrary.findIndex(elementIndex => elementIndex.id === this.book.id);
         if (index != -1) myLibrary.splice(index, 1);
     }
 
