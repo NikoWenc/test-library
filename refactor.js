@@ -29,7 +29,7 @@ class BookEntry {
         this.bookTitle = createElement('h2', `Book Title: ${book.title}`);
         this.bookAuthor = createElement('p', `Book Author: ${book.author}`);
         this.bookPages = createElement('p', `Number of Pages: ${book.pages}`);
-        this.bookStatus = createElement('p', book.status);
+        this.bookStatus = createElement('p', book.isRead ? 'Finished' : 'Not yet Read');
         this.buttonsDiv = createElement('div', false, 'buttonsDiv');
         this.readButton = createElement('button', 'Done', 'doneBTN');
         this.delButton = createElement('button', 'Delete', 'delBTN');
@@ -37,7 +37,7 @@ class BookEntry {
         // change status when done reading
         this.readButton.addEventListener('click', () => {
             book.doneRead();
-            this.bookStatus.textContent = book.status;
+            this.bookStatus.textContent = book.isRead ? 'Finished' : 'Not yet Read';
             this.bookStatus.style.color = 'green';
         })
 
@@ -86,7 +86,7 @@ form.addEventListener('submit', (event) => {
 
 class Book {
     constructor(title, author, pages){
-        this.status = 'not read yet';
+        this.isRead = false;
         this.title = title;
         this.author = author;
         this.pages = pages;
@@ -94,6 +94,6 @@ class Book {
     }
 
     doneRead(){
-        return this.status = 'Finished';
+        return this.isRead = true;
     }
 }
