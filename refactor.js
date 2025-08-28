@@ -1,7 +1,19 @@
+const container = document.querySelector('.container');
+const addBook = document.querySelector('.button');
+const form = document.querySelector('form');
+const dialog = document.querySelector('dialog');
+const closeBTN = document.querySelector('#closeBTN');
 
-function globalAddEvent(element, action, func) {
-    return element.addEventListener(action, func);
-}
+const myLibrary = [];
+
+// add book details button
+addBook.addEventListener('click', () => dialog.showModal());
+
+// close button for dialog
+closeBTN.addEventListener('click', (event) => {
+    dialog.close();
+    event.preventDefault()
+});
 
 function createElement (tag, text, classList) {
     const element = document.createElement(tag);
@@ -55,6 +67,18 @@ class BookEntry {
 }
 
 const bookEntry = new BookEntry();
+
+// prevent form default submit
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const {formTitle, formAuthor, formPages} = form.elements;
+    let newBook = Book(formTitle.value, formAuthor.value, formPages.value);
+    myLibrary.push(newBook);
+    container.appendChild(bookEntry(newBook));
+
+    dialog.close();
+})
 
 class Book {
     constructor(title, author, pages){
