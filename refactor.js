@@ -35,65 +35,65 @@ class BookEntry {
         this.delButton = createElement('button', 'Delete', 'delBTN');
 
         // change status when done reading
-        readButton.addEventListener('click', () => {
+        this.readButton.addEventListener('click', () => {
             book.doneRead();
-            bookStatus.textContent = book.status;
-            bookStatus.style.color = 'green';
+            this.bookStatus.textContent = book.status;
+            this.bookStatus.style.color = 'green';
         })
 
         // delete the entry
-        delButton.addEventListener('click', () => {
-            container.removeChild(newDiv)
+        this.delButton.addEventListener('click', () => {
+            container.removeChild(this.newDiv)
             const index = myLibrary.findIndex(elementIndex => elementIndex.id === book.id);
             if (index != -1) myLibrary.splice(index, 1);
         });
     }
 
     append(){
-        buttonsDiv.append(
-            readButton, 
-            delButton
+        this.buttonsDiv.append(
+            this.readButton, 
+            this.delButton
         );
-        return newDiv.append(
-            bookTitle, 
-            bookAuthor, 
-            bookPages, 
-            bookStatus, 
-            buttonsDiv,
+        this.newDiv.append(
+            this.bookTitle, 
+            this.bookAuthor, 
+            this.bookPages, 
+            this.bookStatus, 
+            this.buttonsDiv,
         );
+
+        return this.newDiv;
     }
     
 
 }
-
-const bookEntry = new BookEntry();
 
 // prevent form default submit
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
     const {formTitle, formAuthor, formPages} = form.elements;
-    let newBook = Book(formTitle.value, formAuthor.value, formPages.value);
+    let newBook = new Book(formTitle.value, formAuthor.value, formPages.value);
     myLibrary.push(newBook);
-    container.appendChild(bookEntry(newBook));
+    let bookEntry = new BookEntry(newBook);
+    container.appendChild(bookEntry.append());
 
+    formTitle.value = '';
+    formAuthor.value = '';
+    formPages.value = '';
     dialog.close();
 })
 
 class Book {
     constructor(title, author, pages){
         this.status = 'not read yet';
-        this.title;
-        this.author;
-        this.pages;
-        this.id = rypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.id = crypto.randomUUID();
     }
 
     doneRead(){
         return this.status = 'Finished';
-    }
-
-    info(){
-        return `${this.title} by ${this.author}, ${this.pages} pages, ${this.status}`;
     }
 }
