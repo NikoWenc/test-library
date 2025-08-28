@@ -72,21 +72,3 @@ function Book (title, author, pages) {
     const id = crypto.randomUUID();
     return {title, author, pages, get status() { return status }, doneRead, info, id,}
 }
-
-
-class NewClass {
-    constructor(name){
-        this.name = name;
-    }
-
-    sayHi(){
-        return this.name;
-    }
-
-    newHi(){
-        return `${this.name} new`;
-    }
-}
-
-const testUser = new NewClass('niko');
-console.log(testUser.sayHi())
