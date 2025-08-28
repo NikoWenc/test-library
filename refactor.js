@@ -42,7 +42,7 @@ class BookEntry {
     }
     
     updateBookReadStatus(book){
-        book.isRead ? book.undoRead(): book.doneRead();
+        book.toggleReadStatus();
         this.bookStatus.textContent = book.isRead ? 'Finished' : 'Not yet Read';
         this.bookStatus.style.color = book.isRead ? 'green' : 'white';
         this.readButton.textContent = book.isRead ? 'Undone' : 'Done';
@@ -69,8 +69,6 @@ class BookEntry {
 
         return this.newDiv;
     }
-    
-
 }
 
 // prevent form default submit
@@ -98,15 +96,7 @@ class Book {
         this.id = crypto.randomUUID();
     }
 
-    doneRead(){
-        return this.isRead = true;
-    }
-
-    undoRead(){
-        return this.isRead = false;
-    }
-
-    toggleRead(){
-        return this.isRead ? true : false;
+    toggleReadStatus(){
+        return this.isRead = this.isRead ? false : true;
     }
 }
