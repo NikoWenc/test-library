@@ -22,6 +22,10 @@ function createElement (tag, text, classList) {
     return element;
 }
 
+function updateBookStatus(book) {
+    return book.isRead ? book.undoRead(): book.doneRead();
+}
+
 class BookEntry {
 
     constructor(book) {
@@ -36,9 +40,9 @@ class BookEntry {
 
         // change status when done reading
         this.readButton.addEventListener('click', () => {
-            book.doneRead();
+            updateBookStatus(book);
             this.bookStatus.textContent = book.isRead ? 'Finished' : 'Not yet Read';
-            this.bookStatus.style.color = 'green';
+            this.bookStatus.style.color = book.isRead ? 'green' : 'white';
         })
 
         // delete the entry
@@ -95,5 +99,9 @@ class Book {
 
     doneRead(){
         return this.isRead = true;
+    }
+
+    undoRead(){
+        return this.isRead = false;
     }
 }
