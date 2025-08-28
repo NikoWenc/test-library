@@ -20,6 +20,20 @@ function createElement (tag) {
     return element;
 }
 
+class Book {
+    constructor(title, author, pages){
+        this.isRead = false;
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.id = crypto.randomUUID();
+    }
+
+    toggleReadStatus(){
+        this.isRead = this.isRead ? false : true;
+    }
+}
+
 class BookEntry {
 
     constructor(book) {
@@ -103,17 +117,3 @@ form.addEventListener('submit', (event) => {
     form.reset();
     dialog.close();
 })
-
-class Book {
-    constructor(title, author, pages){
-        this.isRead = false;
-        this.title = title;
-        this.author = author;
-        this.pages = pages;
-        this.id = crypto.randomUUID();
-    }
-
-    toggleReadStatus(){
-        return this.isRead = this.isRead ? false : true;
-    }
-}
