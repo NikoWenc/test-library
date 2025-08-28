@@ -81,9 +81,7 @@ form.addEventListener('submit', (event) => {
     let bookEntry = new BookEntry(newBook);
     container.appendChild(bookEntry.append());
 
-    formTitle.value = '';
-    formAuthor.value = '';
-    formPages.value = '';
+    form.reset();
     dialog.close();
 })
 
